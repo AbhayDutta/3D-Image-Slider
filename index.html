@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dragon Slider Showcase</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+    /* Neon music box styles with everything */
+    .music-box {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+    }
+
+    .music-box button {
+        position: relative;
+        background: #0f0f2b;
+        color: #00f0ff;
+        border: 2px solid #00f0ff;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        box-shadow:
+            0 0 15px #00f0ff,
+            0 0 30px #7f00ff,
+            0 0 45px #00f0ff;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.5s;
+    }
+
+    .music-box button:hover {
+        transform: scale(1.1);
+        box-shadow:
+            0 0 20px #00f0ff,
+            0 0 40px #7f00ff,
+            0 0 60px #00f0ff;
+    }
+
+    .music-box button::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(127,0,255,0.4) 10%, transparent 60%);
+        opacity: 0;
+        animation: wave 2s linear infinite;
+        border-radius: 50%;
+    }
+
+    .music-box.playing button::before {
+        opacity: 1;
+    }
+
+    .music-box.playing button {
+        animation: rotate 6s linear infinite, shake 0.5s ease infinite;
+    }
+
+    /* Spark particles */
+    .music-box button::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        box-shadow:
+            0 0 5px #00f0ff,
+            10px 10px 5px #7f00ff,
+            -10px -10px 5px #00f0ff,
+            5px -5px 5px #7f00ff,
+            -5px 5px 5px #00f0ff;
+        animation: sparks 3s linear infinite;
+        border-radius: 50%;
+    }
+
+    /* Sound bars inside button */
+    .music-box .bars {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 3px;
+    }
+
+    .music-box .bars div {
+        width: 4px;
+        height: 12px;
+        background: #00f0ff;
+        border-radius: 2px;
+        animation: barAnim 1s ease-in-out infinite;
+        animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    .music-box.playing .bars div {
+        animation-play-state: running;
+    }
+
+    .music-box .bars div:not(.music-box.playing .bars div) {
+        animation-play-state: paused;
+    }
+
+    @keyframes barAnim {
+        0%, 100% { height: 12px; }
+        50% { height: 20px; }
+    }
+
+    @keyframes wave {
+        0%,100% { transform: scale(0.8); opacity: 0.4; }
+        50% { transform: scale(1.2); opacity: 0.7; }
+    }
+
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes shake {
+        0%,100% { transform: translate(0,0) rotate(0deg); }
+        25% { transform: translate(2px, -2px) rotate(1deg); }
+        50% { transform: translate(-2px, 2px) rotate(-1deg); }
+        75% { transform: translate(2px, 2px) rotate(1deg); }
+    }
+
+    @keyframes sparks {
+        0%,100% {
+            box-shadow:
+                0 0 5px #00f0ff,
+                10px 10px 5px #7f00ff,
+                -10px -10px 5px #00f0ff,
+                5px -5px 5px #7f00ff,
+                -5px 5px 5px #00f0ff;
+        }
+        50% {
+            box-shadow:
+                0 0 8px #7f00ff,
+                12px -8px 8px #00f0ff,
+                -12px 8px 8px #7f00ff,
+                8px 12px 8px #00f0ff,
+                -8px -12px 8px #7f00ff;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="banner" role="banner">
+        <div class="slider" style="--quantity: 10" aria-label="Image carousel">
+            <div class="item" style="--position: 1"><img src="images/Kaiju (4).jpeg" alt="Dragon image 1"></div>
+            <div class="item" style="--position: 2"><img src="images/Hammerjaw, CAT V.jpeg" alt="Dragon image 2"></div>
+            <div class="item" style="--position: 3"><img src="images/Leatherback.jpeg" alt="Dragon image 3"></div>
+            <div class="item" style="--position: 4"><img src="images/Pacific rim kaiju.jpeg" alt="Dragon image 4"></div>
+            <div class="item" style="--position: 5"><img src="images/Skaner.jpeg" alt="Dragon image 5"></div>
+            <div class="item" style="--position: 6"><img src="images/Pacific Rim 's Kaiju - Fan Art, Federico Zanellato.jpeg" alt="Dragon image 6"></div>
+            <div class="item" style="--position: 7"><img src="images/download.jpeg" alt="Dragon image 7"></div>
+            <div class="item" style="--position: 8"><img src="images/Kaiju and Jaeger Inspired Concepts _ Concept Art World.jpeg" alt="Dragon image 8"></div>
+            <div class="item" style="--position: 9"><img src="images/A Look at How Weta Workshop Designed the Giant Kaiju Monsters for Pacific Rim Uprising.jpeg" alt="Dragon image 9"></div>
+            <div class="item" style="--position: 10"><img src="images/KAIJU - Inspired by Pacific Rim _  Marmoset toolbag.jpeg" alt="Dragon image 10"></div>
+        </div>
+        <div class="content">
+            <h1 data-content="Gipsy Avenger">Gipsy Avenger</h1>
+            <div class="author">
+                <h2>Jaeger and Kaiju variants</h2>
+                <p><b>Pacific Rim</b></p>
+                <p>"July 12, 2013: Guillermo del Toro Brings Giant Mechs to Life with Pacific Rim"</p>
+            </div>
+            <div class="model" aria-hidden="true"></div>
+        </div>
+    </div>
+
+    <!-- 🎵 Neon Music Box with sound bars -->
+    <div class="music-box" id="music-box">
+        <button id="music-toggle">
+            🎵
+            <div class="bars">
+                <div style="--i:1"></div>
+                <div style="--i:2"></div>
+                <div style="--i:3"></div>
+                <div style="--i:4"></div>
+            </div>
+        </button>
+        <audio id="bg-music" src="music/pacific_rim_ringtone.mp3" loop></audio>
+    </div>
+
+<script>
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
+    const musicBox = document.getElementById("music-box");
+
+    toggleBtn.addEventListener("click", () => {
+        if (music.paused) {
+            music.play();
+            musicBox.classList.add("playing");
+        } else {
+            music.pause();
+            musicBox.classList.remove("playing");
+        }
+    });
+</script>
+</body>
+</html>
