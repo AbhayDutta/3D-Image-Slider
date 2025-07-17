@@ -20,11 +20,11 @@
 ---
 
 ## 📂 Features
-- ⚡ Pure HTML & CSS — no JavaScript needed
-- 🔥 3D rotating image carousel
-- 🎵 Music player box integrated into the UI
-- 📱 Fully responsive for mobile & desktop
-- ✨ Easy to customize images, background & music
+-  Pure HTML & CSS — no JavaScript needed
+-  3D rotating image carousel
+-  Music player box integrated into the UI
+-  Fully responsive for mobile & desktop
+-  Easy to customize images, background & music
 
 ---
 
